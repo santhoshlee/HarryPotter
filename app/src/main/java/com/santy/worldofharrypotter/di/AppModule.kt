@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import com.santy.worldofharrypotter.data.local.AppDatabase
 import com.santy.worldofharrypotter.data.local.dao.BookDao
+import com.santy.worldofharrypotter.data.local.dao.CharacterDao
+import com.santy.worldofharrypotter.data.local.dao.HouseDao
+import com.santy.worldofharrypotter.data.local.dao.SpellDao
 import com.santy.worldofharrypotter.data.remote.ApiService
 import com.santy.worldofharrypotter.util.NetworkMonitor
 import dagger.Module
@@ -45,6 +48,15 @@ object AppModule {
 
     @Provides
     fun provideBookDao(db: AppDatabase): BookDao = db.bookDao()
+
+    @Provides
+    fun provideCharacterDao(db: AppDatabase): CharacterDao = db.characterDao()
+
+    @Provides
+    fun provideHousesDao(db: AppDatabase): HouseDao = db.houseDao()
+
+    @Provides
+    fun provideSpellDao(db: AppDatabase): SpellDao = db.spellDao()
 
     @Provides
     @Singleton

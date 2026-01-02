@@ -1,4 +1,5 @@
-package com.santy.worldofharrypotter.ui.books
+package com.santy.worldofharrypotter.ui.character
+
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -26,38 +27,38 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
-import com.santy.worldofharrypotter.data.local.entity.BookEntity
-import com.santy.worldofharrypotter.ui.books.viewmodels.BooksViewModel
+import com.santy.worldofharrypotter.data.local.entity.CharacterEntity
+import com.santy.worldofharrypotter.ui.character.viewmodels.CharacterViewModel
 import com.santy.worldofharrypotter.ui.home.EmptyView
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun BooksScreen(
-    viewModel: BooksViewModel = hiltViewModel(),
+fun CharacterScreen(
+    viewModel: CharacterViewModel = hiltViewModel(),
     onItemClick: (Int) -> Unit
 ) {
-    val books by viewModel.books.collectAsState()
+    val characters by viewModel.characters.collectAsState()
 
-    if (books.isEmpty()) {
-        EmptyView("No Books Found")
+    if (characters.isEmpty()) {
+        EmptyView("No Character Found")
     } else {
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 128.dp)
         ) {
-           items(
-               items = books,
-               key = { it.index }
-           ) { book ->
-               BookItem(book, onItemClick = onItemClick)
-           }
+            items(
+                items = characters,
+                key = { it.index }
+            ) { character ->
+                CharacterItem(character, onItemClick = onItemClick)
+            }
         }
     }
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun BookItem(
-    book: BookEntity,
+fun CharacterItem(
+    character: CharacterEntity,
     onItemClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -71,8 +72,8 @@ fun BookItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier
-            .padding(8.dp)
-            .clickable { onItemClick(book.index) }) {
+                .padding(8.dp)
+                .clickable { onItemClick(character.index) }) {
             GlideImage(
                 modifier = Modifier
                     .shadow(
@@ -80,13 +81,13 @@ fun BookItem(
                         shape = RoundedCornerShape(8.dp)
                     )
                     .clip(RoundedCornerShape(8.dp)),
-                model = book.cover,
+                model = character.image,
                 contentDescription = null,
                 contentScale = ContentScale.Fit
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                book.title,
+                character.fullName,
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.labelLarge
             )

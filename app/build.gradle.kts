@@ -90,6 +90,10 @@ dependencies {
 
     // Icons
     implementation (libs.androidx.compose.material.icons.extended)
+
+    implementation(libs.androidx.compose.animation)
+
+    implementation(libs.accompanist.navigation.animation)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
